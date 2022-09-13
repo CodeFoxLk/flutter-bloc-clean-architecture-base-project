@@ -1,0 +1,1 @@
+export 'product/entities/product_entity.dart';
