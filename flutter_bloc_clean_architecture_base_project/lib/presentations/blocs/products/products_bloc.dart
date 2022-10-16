@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture_base_project/domain/entities.dart';
 import 'package:flutter_bloc_clean_architecture_base_project/domain/use_cases.dart'
     show GetAllProductsUseCase;
-import 'package:flutter_bloc_clean_architecture_base_project/utils/utils.dart';
+import 'package:flutter_bloc_clean_architecture_base_project/utils/data_status.dart';
 // import 'package:rxdart/transformers.dart';
 
 part 'products_event.dart';
@@ -20,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   void loadProducts(ProductLoadStarted event, Emitter<ProductState> emit) async {
    final productData = await _getAllProductsUseCase.getAllProducts();
     
-    if (productData.error != null) {
+    if (productData is DataFailed) {
       emit(const ProductLoadFaliurState());
     } else {
       emit(ProducstLoadScuccessState(products: productData.data ?? []));
